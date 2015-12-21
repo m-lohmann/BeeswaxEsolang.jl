@@ -1,5 +1,11 @@
+__precompile__()
+
 module BeeswaxEsolang
 
-# package code goes here
+include("beeswax.jl")
+include("bwinstructions.jl")
+include("bwdebug.jl")
 
-end # module
+export beeswax
+
+end     #module
