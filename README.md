@@ -156,7 +156,7 @@ j,k,l           Mirror direction of bee along the half-axes |, /, \
    |     in|mirr.        /  in|mirr.      \        in|mirr.
 j  |     0 | 3      k  /    0 | 1        l  \      0 | 5
    |     1 | 2       /      1 | 0             \    1 | 4
-         2 | 1              2 | 5                  2 | 2
+         2 | 1              2 | 5                  2 | 3
          3 | 0              3 | 4                  3 | 2
          4 | 5              4 | 3                  4 | 1
          5 | 4              5 | 2                  5 | 0
