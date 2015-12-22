@@ -95,7 +95,7 @@ _PP(F((((D
    @
 ```
 
-### “Negative” growth of honeycomb, coordinate system reset
+#### “Negative” growth of honeycomb, coordinate system reset
 
 Because the coordinate indices of the honeycomb are 1-based, growth in negative direction (‘up’ and ‘left’ in the source code) is only possible if the 2nd and/or 3rd local stack values are set to zero. Growth in negative direction can only be realized by steps of 1.
 The coordinate origin of the resulting source code is reset to (row,column) = (1,1) again:
