@@ -64,7 +64,6 @@ Every bee has a “personal” fixed size stack, carrying three ```UInt64``` val
 ### Global stacks
 
 To store bigger amounts of data there is also a global stack (```gstack```) available where bees can drop values onto and pick up values from.
-`In the final version of the program this stack may be implemented as an independent 2-dimensional honeycomb.`
 
 The global stack is *not limited in size* and only allows basic stack operations, but no other forms of data manipulation.
 All arithmetic, bit manipulation and other operations have to be executed by bees on their local “personal” stacks.
