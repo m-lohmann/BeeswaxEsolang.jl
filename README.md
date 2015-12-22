@@ -370,6 +370,8 @@ Run any program with `beeswax("program_name")`. Without further parameters the p
 
 `beeswax("program_name",debug,limit)` lets you determine a maximum limit of ticks and a debug mode.
 
+`beeswax("program_name",debug_mode,seconds_between_steps,limit)
+
 #### Available debug modes
 
 ```
@@ -377,6 +379,9 @@ Run any program with `beeswax("program_name")`. Without further parameters the p
     1   Output of all local stack contents at every tick to STDOUT.
     2   Output of program code with locations of all bees, plust local stack contents, for every tick.
 ```
+
+### Using REPL help
+All necessary information for executing beeswax programs can be accessed by typing `?beeswax` in the julia console.
 
 ## Example beeswax programs
 
