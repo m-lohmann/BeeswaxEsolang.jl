@@ -329,8 +329,8 @@ c               top=Int(STDIN)   Read character from STDIN and push its value on
 i               top=(STDIN)      Read integer from STDIN and push its value on gstack.
 I               STDOUT=top       Return gstack top value as integer to STDOUT.
 C               STDOUT=Char(top) Return lstack top value as character(UTF8) to STDOUT.
-`               Toggle STDOUT    Return all following encountered symbols as characters(UTF8) directly to STDOUT. The next ` switches back to normal mode again.
-
+`               Toggle STDOUT    Return all following encountered symbols as characters(UTF8) directly to STDOUT.
+                                 The next ` switches back to normal mode again.
 N               STDOUT=newline   Output newline character to STDOUT.
 ```
 
@@ -341,14 +341,19 @@ r               Read file from disk.
                 Local stack setup: lstack[-,-,namebytes]•
                   namebytes: number of bytes to take from gstack to determine the file name.
                 The file bytes are reinterpreted as UInt64 words (big-endian).
-                If the bye count of the file does not add up to full 64-bit words, the end of the file is padded to the next full 64-bit word length, using 8-length%8 zero bytes.
-                The UInt8 stream is reinterpreted as UInt64 words and pushed on top of gstack, 64-bit word by 64-bit word.
+                If the bye count of the file does not add up to full 64-bit words, then
+                the end of the file is padded to the next full 64-bit word length, using
+                (8-file_size%8) zero bytes.
+                The UInt8 stream is reinterpreted as UInt64 words and pushed on top of gstack,
+                64-bit word by 64-bit word.
 
 w               Write file to disk.
                 Local stack setup: lstack[-,filebytes,namebytes]•
                   namebytes: number of bytes taken from gstack to determine the file name.
-                  filebytes: number of bytes (after the name bytes) taking from gstack to determine the file content.                          The 64 bit words are reinterpreted as groups of 8 bytes in big-endian order.
-                UInt64[0x11000000000000ff] is reinterpreted as UInt8[0xff,0x00,0x00,0x00,0x00,0x00,0x00,0x11]•
+                  filebytes: number of bytes (after the name bytes) taking from gstack to
+                  determine the file content.
+                The 64 bit words are reinterpreted as groups of 8 bytes in big-endian order.
+                UInt64[0x11000000000000ff] is interpreted as UInt8[0xff,0x00,0x00,0x00,0x00,0x00,0x00,0x11]•
 ```
 
 ## Use of beeswax.jl
