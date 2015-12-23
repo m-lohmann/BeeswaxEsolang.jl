@@ -124,7 +124,7 @@ function beeswax(name::AbstractString,debug::Int,pause::Float64,limit::Int)
     close(prog)
     
     #check if it’s a valid program
-    ismatch(r"[\*_\\/]",readall(name))==true ? println("Valid beeswax program.") : error("No starting point found. Not a valid beeswax program.")
+    ismatch(r"[\*_\\/]",readall(name))==true ? nothing : error("No starting point found. Not a valid beeswax program.")
 
     # create arena
     deb.d>2 ? println("creating honeycomb..."):nothing
