@@ -466,22 +466,22 @@ end
 
 #   (
 function bitshiftleft(list,ind)
-    list[ind].lstack[end]=list[ind].lstack[end]<<1
+    list[ind].lstack[end]=list[ind].lstack[end]<<list[ind].lstack[end-1]
 end
 
 #   )
 function bitshiftright(list,ind)
-    list[ind].lstack[end]=list[ind].lstack[end]>>>1
+    list[ind].lstack[end]=list[ind].lstack[end]>>>list[ind].lstack[end-1]
 end
 
 #   [
 function bitrollleft(list,ind)
-    list[ind].lstack[end]=list[ind].lstack[end]<<1+list[ind].lstack[end]>>>63
+    list[ind].lstack[end]=list[ind].lstack[end]<<(list[ind].lstack[end-1]%64)+list[ind].lstack[end]>>>(64-list[ind].lstack[end-1]%64)
 end
 
 #   ]
 function bitrollright(list,ind)
-    list[ind].lstack[end]=list[ind].lstack[end]>>>1+list[ind].lstack[end]<<63
+    list[ind].lstack[end]=list[ind].lstack[end]>>>(list[ind].lstack[end-1]%64)+list[ind].lstack[end]<<(64-list[ind].lstack[end-1]%64)
 end
 
 #I/O
