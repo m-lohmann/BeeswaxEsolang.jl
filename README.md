@@ -429,5 +429,5 @@ _`n`TN`F(`{`)=`X~P~K#{; d~@M<
 Writes a file named “A” to disk, with the hex content `0x41414141414141` (ASCII: `AAAAAAA`)
 
 ```
-_8F.PF((((((((+F((((((((((((((((+F((((((((((((((((((((((((((((((((+fz5F1w
+_8F.PF8~(@~@+F8~((@~@+F8~((((@~@+fz7~1w
 ```
