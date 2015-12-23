@@ -369,9 +369,9 @@ Run any program with `beeswax("program_name")`. Without further parameters the p
 
 `beeswax("program_name",limit)` lets you determine a maximum limit of ticks the program is supposed to run.
 
-`beeswax("program_name",debug,limit)` lets you determine a maximum limit of ticks and a debug mode.
+`beeswax("program_name",debug_mode,limit)` lets you determine a maximum limit of ticks and a debug mode.
 
-`beeswax("program_name",debug_mode,seconds_between_steps,limit)
+`beeswax("program_name",debug_mode,seconds_between_steps,limit)` lets you set the wait time (Float/Int in seconds) between the execution of each step.
 
 #### Available debug modes
 
@@ -382,7 +382,7 @@ Run any program with `beeswax("program_name")`. Without further parameters the p
 ```
 
 ### Using REPL help
-All necessary information for executing beeswax programs can be accessed by typing `?beeswax` in the julia console.
+All necessary information for executing beeswax programs is available via docstrings. Just type `?beeswax` in the julia console to access the info.
 
 ## Example beeswax programs
 
