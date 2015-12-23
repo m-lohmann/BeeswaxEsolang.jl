@@ -304,10 +304,10 @@ M               top=top-1       [3,2,1]• becomes [3,2,18446744073709551615]•
 |               top=top OR 2nd  [3,2,1]• becomes [3,2,3]•
 $               top=top XOR 2nd [3,2,1]• becomes [3,2,3]•
 !               top=NOT top     [3,2,1]• becomes [3,2,18446744073709551614]• (due to wrap-around)
-(               top=top<<1      [3,2,1]• becomes [3,2,2]• (arithmetic shift left)
-)               top=top>>>1     [3,2,1]• becomes [3,2,0]• (logical shift right)
-[               top=top<<1+top>>>63 (roll bits left) [3,2,8646629796688953342]• becomes [3,2,17293259593377906684]•
-]               top=top>>>1+top<<63 (roll bits right) [3,2,8646629796688953342]• becomes [3,2,4323314898344476671]•
+(               top=top<<2nd      [3,2,1]• becomes [3,2,2]• (arithmetic shift left)
+)               top=top>>>2nd     [3,2,1]• becomes [3,2,0]• (logical shift right)
+[               top=top<<(2nd%64)+top>>>(64-2nd%64) (roll bits left) [3,2,8646629796688953342]• becomes [3,2,16274878703619526647]•
+]               top=top>>>(2nd%64)1+top<<(64-2nd%64) (roll bits right) [3,2,8646629796688953342]• becomes [3,2,2143642225978703743]•
 ```
 
 ### Local/global I/O operations
@@ -325,10 +325,12 @@ T               top=(STDIN)      Read integer from STDIN and push its value on g
 
 ```
 c               top=Int(STDIN)   Read character from STDIN and push its value on gstack.
+V                                Read string from STDIN and push its content as values on gstack in reverse order.
+                                 The last character of the input string ends on top of gstack.
 i               top=(STDIN)      Read integer from STDIN and push its value on gstack.
 I               STDOUT=top       Return gstack top value as integer to STDOUT.
 C               STDOUT=Char(top) Return lstack top value as character(UTF8) to STDOUT.
-`               Toggle STDOUT    Return all following encountered symbols as characters(UTF8) directly to STDOUT.
+`               Toggle STDOUT    Return all following encountered symbols as characters directly to STDOUT.
                                  The next ` switches back to normal mode again.
 N               STDOUT=newline   Output newline character to STDOUT.
 ```
