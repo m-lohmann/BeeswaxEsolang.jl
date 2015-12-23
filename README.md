@@ -424,7 +424,7 @@ _`n`TN`F(`{`)=`X~P~K#{; d~@M<
   
 ```
 #### Write to disk
-Writes a file named “A” to diske, with the hex content `0x41414141414141` (ASCII: `AAAAAAA`)
+Writes a file named “A” to disk, with the hex content `0x41414141414141` (ASCII: `AAAAAAA`)
 
 ```
 _8F.PF((((((((+F((((((((((((((((+F((((((((((((((((((((((((((((((((+fz5F1w
