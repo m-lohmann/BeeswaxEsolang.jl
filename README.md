@@ -408,7 +408,7 @@ _`Enter number:`TN{` squared=`~+.{
 
 #### Output numbers from 1 to 100
 ```
-_PPP(((P((~>P{Kp
+*3F(P~2~(~1>P{Kp
             b N<
 ```
 #### Return n-th Fibonacci number
