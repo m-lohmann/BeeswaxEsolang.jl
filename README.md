@@ -242,7 +242,7 @@ For example
 Always keep the `UInt64` wrap-around in mind!
 
 
-### Local and global stack manipulations (global stack may be subject to change):
+### Local and global stack manipulations
 `•` marks the top of the stack.
 
 #### Local stack (lstack) instructions
