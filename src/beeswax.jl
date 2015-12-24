@@ -208,7 +208,7 @@ function beeswax(name::AbstractString,debug::Int,pause::Float64,limit::Int)
                 cleanupip(list,rows,cols)
             else
                 instruct(list,ind,gstack,arena,r,c)
-                move(list,ind)
+                arena.a[r,c]=='J' ? nothing : move(list,ind)
             end
             cleanupip(list,rows,cols)
             rows=maximum(length(arena.a[:,1]))
