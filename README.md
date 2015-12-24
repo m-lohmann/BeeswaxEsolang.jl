@@ -280,8 +280,8 @@ A               Push gstack length on top of gstack.   [4,3,2,1]• becomes [4,3
 
 ```
 e               Flush all lstack values on the gstack. lstack [a,b,c]• ends up on gstack as [...,c,b,a]•
-f               Fetch top value from lstack and push it on top of gstack.
-g               Fetch top value from gstack and set it as top value of lstack.
+f               Read top value of lstack and push it on top of gstack.
+g               Read top value of gstack and set it as top value of lstack.
 ```
 
 ### Arithmetic operations
