@@ -83,16 +83,36 @@ Bees that step outside the given honeycomb area are deleted, unless they are dro
 #### Positive growth of the honeycomb
 
 ```
-_PP(F((((D
+*PF((F(D
 ```
-When the bee is at `D`, its local stack is `[4,4,64]•`, so the value 64 is dropped at (row,column)=(4,4). So, the source code gets extended to a rectangle encompassing all code:
+The command `P` increments the top value of lstack.
 
+`[0,0,1]•`
+
+Then `F`sets all lstack values to the top value.
+
+`[1,1,1]•`
+
+`((`executes two arithmetic shifts left.
+
+`[1,1,4]•`
+
+`F` sets all lstack values to the top value again.
+
+`[4,4,4]•`
+
+The next `(` executes 4 arithmetic shifts, because the 2nd lstack value is 4 now.
+
+`[4,4,64]•`
+
+And the final `D` drops the lstack top value (its according character) to [row,column] = lstack[2nd,3rd].
 ```
-_PP(F((((D
+*PF((F(D
 
 
    @
 ```
+The resulting source code gets extended to a rectangle encompassing all code.
 
 #### “Negative” growth of honeycomb, coordinate system reset
 
@@ -100,12 +120,12 @@ Because the coordinate indices of the honeycomb are 1-based, growth in negative 
 The coordinate origin of the resulting source code is reset to (row,column) = (1,1) again:
 
 ```
-*PP((((((D
+*4F(@0~0@D
 ```
 results in
 ```
 @
- PP((((((D
+ *4F(@0~0@D
 ```
 
 The new coordinate origin (1,1) of the honeycomb is set to the new upper left corner, where the `@` was put.
