@@ -8,10 +8,10 @@
 
 
 """
+
 function prettyprint(name::AbstractString)
     prettyprint(name,1)
 end
-
 
 """
 `prettyprint(name::ASCIIString,style::Int)`  
@@ -26,13 +26,15 @@ end
 
 
 """
+
 function prettyprint(name::AbstractString,style::Int)
     prog=open(name)
-    code=readdlm(prog,'\n')
+    code=readlines(prog)
     close(prog)
     rows=length(code)
     cols=0
     for i=1:rows
+        code[i]=chomp(code[i])
         cols=maximum([cols,strwidth(code[i])])
     end
 
