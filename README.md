@@ -404,6 +404,49 @@ Run any program with `beeswax("program_name")`. Without further parameters the p
 ### Using REPL help
 All necessary information for executing beeswax programs is available via docstrings. Just type `?beeswax` in the julia console to access the info.
 
+## Use of prettyprint.jl
+
+`prettyprint.jl` is a little helper function for better visualization of beeswax sourcecode. The standard visual layout in a rectangular grid can be confusing at times, and this is where `prettyprint` comes into play.
+
+*Execution of prettyprint*
+
+`prettyprint(name::ASCIIString,style::Int)`
+
+`prettyprint(name::ASCIIString)`, defaults to `prettyprint(name::ASCIIString,1)
+
+#### Available styles
+
+```
+    1   Simple hexagonal layout without wasting too much space.
+    2   More sophisticated visualization with grid overlay. Needs a lot of space!
+```
+Both styles fill empty cells with a bullet sign `•` to make following the potential IP paths easier. This is also helpful if one needs to determine path lengths visually.
+
+### Examples
+Original layout
+```
+                            #>'#{;
+_`enter n: `TN`Fib(`{`)=`X  ~P~K#{;    >@{;
+                         #>~P~L#MM@>+@"dM@~p
+                                   d       <
+```
+The same program shown in style 1:
+```
+   • • • • • • • • • • • • • • • • • • • • • • • • # > ' # { ; • • • • • • • • • • • • • •
+  _ ` e n t e r • n : • ` T N ` F i b ( ` { ` ) = ` X • • ~ P ~ K # { ; • • • • > @ { ; •
+ • • • • • • • • • • • • • • • • • • • • • • • • • # > ~ P ~ L # M M @ > + @ " d M @ ~ p
+• • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • d • • • • • • • <
+```
+And in style 2:
+```
+      • — • — • — • — • — • — • — • — • — • — • — • — • — • — • — • — • — • — • — • — • — • — • — • — # — > — ' — # — { — ; — • — • — • — • — • — • — • — • — • — • — • — • — • — •
+     / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ /
+    _ — ` — e — n — t — e — r — • — n — : — • — ` — T — N — ` — F — i — b — ( — ` — { — ` — ) — = — ` — X — • — • — ~ — P — ~ — K — # — { — ; — • — • — • — • — > — @ — { — ; — •
+   / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ /
+  • — • — • — • — • — • — • — • — • — • — • — • — • — • — • — • — • — • — • — • — • — • — • — • — • — # — > — ~ — P — ~ — L — # — M — M — @ — > — + — @ — " — d — M — @ — ~ — p
+ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ /
+• — • — • — • — • — • — • — • — • — • — • — • — • — • — • — • — • — • — • — • — • — • — • — • — • — • — • — • — • — • — • — • — • — • — • — d — • — • — • — • — • — • — • — <
+```
 ## Example beeswax programs
 
 #### Cat program
