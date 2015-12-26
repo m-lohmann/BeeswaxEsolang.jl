@@ -237,7 +237,6 @@ G       Get value from honeycomb[r,c]=[2nd,3rd] and put it as top value on local
 ```
 Y       Drop local stack top value to cell at relative [r,c]=[2nd,3rd].
         If relative [r,c] are lower than absolute [1,1], nothing is dropped.
-
 Z       Get value from cell at relative [a,b]=[2nd,3rd] and put it as top value on local stack.
         If relative [r,c] are lower than absolute [1,1], then local stack top value=0.
 ```
