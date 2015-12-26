@@ -478,15 +478,14 @@ _`Enter number:`TN{` squared=`~+.{
   clear version
 ```
                         #>'#{;
-_`enter n: `TN`Fib(`{`)=`X  ~P~K#{;    >@{;
-                         #>~P~L#MM@>+@"dM@~p
-                                   d       <
+_`Enter n: `TN`Fib(`{`)=`X~P~K#{;
+                         #>~P~L#MM@>+@'q@{;
+                                    b~@M<
 ```
   compact version:
 ```
-          ;{#'<>~P~L#MM@>+@'p@{;
-_`n`TN`F(`{`)=`X~P~K#{; d~@M<
-  
+;{#'<>~P~L#MM@>+@'p@{;
+  _TNX~P~K#{; d~@M<
 ```
 #### Write to disk
 Writes a file named “A” to disk, with the hex content `0x41414141414141` (ASCII: `AAAAAAA`)
