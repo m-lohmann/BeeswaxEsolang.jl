@@ -69,7 +69,7 @@ The global stack is *not limited in size* and only allows basic stack operations
 All arithmetic, bit manipulation and other operations have to be executed by bees on their local “personal” stacks.
 So, before any data on the global stack can be used for calculations etc. a bee has to pick up values from the global stack. After executing the instructions the resulting values can be put back onto the global stack.
 
-## Source code manipulations, self modification, coodrinate system
+## Source code manipulations, self modification, coordinate system
 
 Bees can also drop values anywhere in the source code, and can pick up values from anywhere (analogous to flying to a location and manipulating certain cells in the honeycomb). So, self-modifying source code can be realized.
 
