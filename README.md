@@ -443,3 +443,10 @@ Writes a file named “A” to disk, with the hex content `0x41414141414141` (AS
 ```
 _8F.PF8~(@~@+F8~((@~@+F8~((((@~@+fz7~1w
 ```
+
+#### Quine
+Self-modifying quine.
+
+```
+_4~++~+.@1~0@D@1J
+```
