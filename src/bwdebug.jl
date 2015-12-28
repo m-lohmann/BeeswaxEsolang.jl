@@ -1,51 +1,60 @@
-function debugger(arena,gstack,list,deb,ticks)
+function debugger(arena::Honeycomb,gstack::Array{UInt64,1},list::Array{Pointer,1},deb::Debugstate,ticks::Time)
     if deb.d==1
-        println("\nticks:$(ticks.t)")
-        for ind=1:length(list)
-            println("$ind  instr: $(arena.a[list[ind].loc[1],list[ind].loc[2]])  dir: $(showdir(list[ind].dir))  loc: $(list[ind].loc)  $(list[ind].lstack)•")
+        println("\nticks:",ticks.t)
+        @inbounds for ind=1:length(list)
+            println(ind,"  instr: ",arena.a[list[ind].loc[1],list[ind].loc[2]],"  dir: ",showdir(list[ind].dir),"  loc: ",list[ind].loc,"  ",(list[ind].lstack),"•")
         end
         print("\n[")
-        for n=1:length(gstack)
-            print("$(Int128(gstack[n]))")
+        @inbounds for n=1:length(gstack)
+            print(Int128(gstack[n]))
             n<length(gstack) ? print(" "):nothing
         end
         println("]•")
         print("\n")
-    elseif deb.d==2
-        println("\nticks:$(ticks.t)")
-        gdebug(list,gstack,arena);print("\n")
+        println("———————")
+    elseif deb.d >= 2
+        println("\nticks: ",ticks.t)
+        gdebug(arena,gstack,list);print("\n")
+        println("———————")
     end
 end
 
-function gdebug(list,gstack,arena)
+function gdebug(arena::Honeycomb,gstack::Array{UInt64,1},list::Array{Pointer,1})
     rows=maximum(length(arena.a[:,1]))
     cols=maximum(length(arena.a[1,:]))
     comb=deepcopy(arena.a)
-    for ind=1:length(list)
+    @inbounds for ind=1:length(list)
         comb[list[ind].loc[1],list[ind].loc[2]]=Char(ind+944)#translates IP numbers to greek letters
     end
 
-    for ind=1:length(list)
-            println("$ind  instr: $(arena.a[list[ind].loc[1],list[ind].loc[2]])  dir: $(showdir(list[ind].dir))  loc: $(list[ind].loc)  $(list[ind].lstack)•")
+    @inbounds for ind=1:length(list)
+        println(Char(ind+944),"  ",ind,"  instr: ",arena.a[list[ind].loc[1],list[ind].loc[2]]," wait: ",showwait(list[ind].wait)," dir: ",showdir(list[ind].dir),"  loc: ",list[ind].loc,"  ",transpose(list[ind].lstack),"•")
     end
 
-    println("\ngstack: $(gstack)•\n\n")
+    println("\ngstack: ",gstack,"•\n\n")
 
-    for r=1:rows
-        for c=1:cols
-            if Int(comb[r,c])>944 && Int(comb[r,c])<976 #greek letters UTF8 range
-                c<cols ? print_with_color(:yellow,"$(comb[r,c])") : print_with_color(:yellow,"$(comb[r,c])\n")
-            else c<cols ? print_with_color(:blue,"$(comb[r,c])") : print_with_color(:blue,"$(comb[r,c])\n")
+    @inbounds for r=1:rows
+        @inbounds for c=1:cols
+            if Int(comb[r,c])>944 && Int(comb[r,c])<976 #greek letters unicode range
+                c<cols ? print(comb[r,c]) : println(comb[r,c])
+            else c<cols ? print(comb[r,c]) : println(comb[r,c])
             end
         end
     end
 end
 
-function showdir(dir)
-    dir==0 ? (return ">") :
-    dir==1 ? (return "d") :
-    dir==2 ? (return "b") :
-    dir==3 ? (return "<") :
-    dir==4 ? (return "p") :
-    dir==5 ? (return "q") : nothing
+function showwait(wait::Int)
+    wait==0 ? (return "∅") :
+    wait==1 ? (return "∫") :
+    wait==2 ? (return "∬") : nothing
+end
+
+
+function showdir(dir::Int)
+    dir==0 ? (return "→") :
+    dir==1 ? (return "↗") :
+    dir==2 ? (return "↖") :
+    dir==3 ? (return "←") :
+    dir==4 ? (return "↙") :
+    dir==5 ? (return "↘") : nothing
 end
