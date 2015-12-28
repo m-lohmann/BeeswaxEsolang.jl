@@ -8,7 +8,8 @@ For instructions about how to use the program, please [scroll down](https://gith
 
 ## Introduction
 
-*beeswax* is a stack-based/cell-based 2-dimensional self-modifiable esoteric programming language drawing inspiration from bees moving around on a honeycomb, and partly drawing inspiration from languages like [Cardinal](http://esolangs.org/wiki/Cardinal). The instruction pointers (bees) move around on a 2D hexagonal grid (the honeycomb). beeswax programs can manipulate their own source code, change the program size, and can read and write files.
+*beeswax* is a stack-based/cell-based 2-dimensional self-modifiable esoteric programming language drawing inspiration from bees moving around on a honeycomb, and partly drawing inspiration from [Cardinal](http://esolangs.org/wiki/Cardinal), and the Mensa Award winning, bug-themed abstract board game [Hive](https://en.wikipedia.org/wiki/Hive_%28game%29).
+The instruction pointers (bees) move around on a 2D hexagonal grid (the honeycomb). beeswax programs can manipulate their own source code, change the program size, and can read and write files.
 
 ### Honeycomb structure and source code layout
 
