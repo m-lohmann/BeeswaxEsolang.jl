@@ -55,7 +55,7 @@ function prettyprint(name::AbstractString,style::Int)
             code[row]=rpad(code[row],cols,"•")
             for i=1:endof(code[row])
                 try
-                    i < endof(code[row]) ? print("$(code[row][i]) — ") : print("$(code[row][i])")
+                    i < endof(code[row]) ? print(code[row][i]," — ") : print(code[row][i])
                 catch
                 end
             end
