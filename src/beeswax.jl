@@ -222,7 +222,8 @@ function beeswax(name::AbstractString,debug::Int,pause::Float64,limit::Int)
             else
                 instruct(list,ind,gstack,arena,r,c)
                 #For 'J' the jump to new location itself counts as move
-                arena.a[r,c]=='J' ? nothing :
+                arena.a[r,c]=='J' && list[ind].printstate==false ? nothing :
+                arena.a[r,c]=='J' && list[ind].printstate==true ? move(list,ind) :
                 arena.a[r,c]=='v' ? nothing :
                 arena.a[r,c]=='^' ? nothing : move(list,ind)
             end

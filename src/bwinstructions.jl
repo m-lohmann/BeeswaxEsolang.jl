@@ -333,10 +333,10 @@ end
 function adropto(list::Array{Pointer,1},ind::Int,arena::Honeycomb)
     r=list[ind].lstack[end-1]
     c=list[ind].lstack[end-2]
-    dropstuff(list::Array{Pointer,1},ind::Int,arena::Honeycomb,r::Int,c::Int)
+    dropstuff(list,ind,arena,Int128(r),Int128(c))
 end
 
-function dropstuff(list::Array{Pointer,1},ind::Int,arena::Honeycomb,r::Int,c::Int)
+function dropstuff(list::Array{Pointer,1},ind::Int,arena::Honeycomb,r::Int128,c::Int128)
     rows=maximum(length(arena.a[:,1]))
     cols=maximum(length(arena.a[1,:]))
     # Padding
