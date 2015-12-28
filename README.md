@@ -451,3 +451,9 @@ Self-modifying quine.
 ```
 _4~++~+.@1~0@D@1J
 ```
+
+Self-modifying reverse quine.
+
+```
+J~@D@~1~M.8~3@.+~++~4*
+```
