@@ -378,17 +378,19 @@ end
 
 #   Y (relative addressing)
 function rdropto(list::Array{Pointer,1},ind::Int,arena::Honeycomb)
-    r=list[ind].loc[end-1]
-    c=list[ind].loc[end-2]
     rows=maximum(length(arena.a[:,1]))
     cols=maximum(length(arena.a[1,:]))
+    r=list[ind].lstack[end-1]
+    c=list[ind].lstack[end-2]
+    x=list[ind].loc[1]
+    y=list[ind].loc[2]
     ro=reinterpret(Int64,r)
     co=reinterpret(Int64,c)
 
-    if r+ro<1 || c+co<1 || r+ro>rows || c+co>cols
+    if x+ro<1 || y+co<1 || x+ro>rows || y+co>cols
         list[ind].lstack[end]=0
     else
-        arena.a[r+ro,c+co]=list[ind].lstack[end]
+        arena.a[x+ro,y+co]=list[ind].lstack[end]
     end
 end
 
@@ -398,15 +400,15 @@ function rgetfrom(list::Array{Pointer,1},ind::Int,arena::Honeycomb)
     cols=maximum(length(arena.a[1,:]))
     r=list[ind].lstack[end-1]
     c=list[ind].lstack[end-2]
-    #negative numbers
-    n=0
+    x=list[ind].loc[1]
+    y=list[ind].loc[2]
     ro=reinterpret(Int64,r)
     co=reinterpret(Int64,c)
-
-    if r+ro<1 || c+co<1 || r+ro>rows || c+co>cols
+    
+    if x+ro<1 || y+co<1 || x+ro>rows || y+co>cols
         list[ind].lstack[end]=0
     else
-        list[ind].lstack[end]=arena.a[r+ro,c+co]
+        list[ind].lstack[end]=arena.a[x+ro,y+co]
     end
 end
 
