@@ -433,6 +433,7 @@ function instruct(list::Array{Pointer,1},ind::Int,gstack::Array{UInt64,1},arena:
         isdigit(arena.a[r,c]) ? setnum(list,ind,arena):       # a = digit
         arena.a[r,c] == 'P' ? increment(list,ind):            # a = a+1
         arena.a[r,c] == 'M' ? decrement(list,ind):            # a = a-1
+        arena.a[r,c] == 'B' ? pow(list,ind):                  # a= a^b
 #bitwise operations
         arena.a[r,c] == '&' ? bitand(list,ind):               # a = a&b
         arena.a[r,c] == '|' ? bitor(list,ind):                # a = a|b

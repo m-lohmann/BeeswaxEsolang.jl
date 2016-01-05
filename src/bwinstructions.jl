@@ -455,6 +455,11 @@ function decrement(list::Array{Pointer,1},ind::Int)
     list[ind].lstack[end]-=1
 end
 
+#   B
+function pow(list::Array{Pointer,1},ind::Int)
+    list[ind].lstack[end]=list[ind].lstack[end]^list[ind].lstack[end-1]
+end
+
 # bitwise operations
 
 #   &

@@ -236,7 +236,8 @@ G       Get value from honeycomb[r,c]=[2nd,3rd] and put it as top value on local
 #### Relative addressing
 
 ```
-Y       Drop local stack top value to cell at relative [r,c]=[2nd,3rd].
+Y       Drop local stack
+ top value to cell at relative [r,c]=[2nd,3rd].
         If relative [r,c] are lower than absolute [1,1], nothing is dropped.
 Z       Get value from cell at relative [a,b]=[2nd,3rd] and put it as top value on local stack.
         If relative [r,c] are lower than absolute [1,1], then local stack top value=0.
@@ -306,6 +307,7 @@ g      Read top value of gstack and set it as top value of lstack.
 0...9  top=digit       lstack[3,2,1]• → lstack[3,2,7]• (for integer 7)
 P      top=top+1       lstack[3,2,1]• → lstack[3,2,2]•
 M      top=top-1       lstack[3,2,1]• → lstack[3,2,18446744073709551615]• (due to wrap-around)
+B      top=top^2nd     lstack[1,2,3]• → lstack[1,2,9]•
 ```
 
 ### Bitwise operations
@@ -340,7 +342,7 @@ T      top=(STDIN)      Read integer from STDIN and push its value on gstack.
 c      top=Int(STDIN)   Read character from STDIN and push its value on gstack.
 V                       Read string from STDIN and push its content as values on gstack
                         in reverse order. The last character of the input string ends on
-                        top of gstack.
+                        top of gstack. 
 i      top=(STDIN)      Read integer from STDIN and push its value on gstack.
 I      STDOUT=top       Return gstack top value as integer to STDOUT.
 C      STDOUT=Char(top) Return lstack top value as character(UTF8) to STDOUT.
