@@ -291,7 +291,8 @@ A      Push length of gstack onto gstack. gstack[4,3,2,1]• → gstack[4,3,2,1,
 #### Local/global stack interaction
 
 ```
-e      Flush all lstack values on the gstack. lstack [a,b,c]• ends up on gstack as [...,c,b,a]•
+e      Flush all lstack values on the gstack. lstack[a,b,c]• → gstack[...,c,b,a]•, lstack[0,0,0]•
+U      Flush top 3 gstack values on lstack. gstack[...,c,b,a]• → lstack[a,b,c]•, gstack[...]•
 f      Read top value of lstack and push it on top of gstack.
 g      Read top value of gstack and set it as top value of lstack.
 ```
@@ -331,7 +332,7 @@ $      top=top XOR 2nd lstack[3,2,1]• → lstack[3,2,3]•
 
 ```
 ,      top=Int(STDIN)   Read character from STDIN and push its value on top of lstack.
-T      top=(STDIN)      Read integer from STDIN and push its value on gstack.
+T      top=(STDIN)      Read integer from STDIN and push its value on lstack.
 {      STDOUT=top       Return lstack top value as integer to STDOUT.
 }      STDOUT=Char(top) Return lstack top value as character(UTF8) to STDOUT.
 ```
@@ -345,7 +346,7 @@ V                       Read string from STDIN and push its content as values on
                         top of gstack. 
 i      top=(STDIN)      Read integer from STDIN and push its value on gstack.
 I      STDOUT=top       Return gstack top value as integer to STDOUT.
-C      STDOUT=Char(top) Return lstack top value as character(UTF8) to STDOUT.
+C      STDOUT=Char(top) Return lstack top value as character(ASCII/Unicode) to STDOUT.
 `      Toggle STDOUT    Return all following encountered symbols as characters directly to STDOUT.
                         The next ` switches back to normal mode again.
 N      STDOUT=newline   Output newline character to STDOUT.

@@ -260,13 +260,18 @@ function localflush2global(list::Array{Pointer,1},ind::Int,gstack::Array{UInt64,
     fill!(list[ind].lstack,0)
 end
 
+#   U
+#   push top 3 gstack on lstack in reverse order and pop top 3 gstack
+function globalflush2local(list::Array{Pointer,1},ind::Int,gstack::Array{UInt64,1})
+    list[ind].lstack[end-2]=gstack[end]
+    list[ind].lstack[end-1]=gstack[end-1]
+    list[ind].lstack[end]=gstack[end-2]
+    for i=1:3
+        pop!(gstack)
+    end
+end
+
 #   ~
-#=function localflip12!(list::Array{Pointer,1},ind::Int)
-    push!(list[ind].lstack,shift!(list[ind].lstack))
-    push!(list[ind].lstack,list[ind].lstack[end-1])
-    push!(list[ind].lstack,shift!(list[ind].lstack))
-    shift!(list[ind].lstack)
-end=#
 function localflip12!(list::Array{Pointer,1},ind::Int)
     push!(list[ind].lstack,splice!(list[ind].lstack,length(list[ind].lstack)-1))
 end
@@ -275,9 +280,6 @@ end
 function localflip13!(list::Array{Pointer,1},ind::Int)
     list[ind].lstack=reverse(list[ind].lstack)
 end
-#=function localflip13!(list::Array{Pointer,1},ind::Int)
-    list[ind].lstack=reverse(list[ind].lstack)
-end=#
 
 #   F
 function localallfirst!(list::Array{Pointer,1},ind::Int)

@@ -14,12 +14,12 @@ function debugger(arena::Honeycomb,gstack::Array{UInt64,1},list::Array{Pointer,1
         println("———————")
     elseif deb.d >= 2
         println("\nticks: ",ticks.t)
-        gdebug(arena,gstack,list);print("\n")
+        gdebug(arena,gstack,list,deb);print("\n")
         println("———————")
     end
 end
 
-function gdebug(arena::Honeycomb,gstack::Array{UInt64,1},list::Array{Pointer,1})
+function gdebug(arena::Honeycomb,gstack::Array{UInt64,1},list::Array{Pointer,1},deb::Debugstate)
     rows=maximum(length(arena.a[:,1]))
     cols=maximum(length(arena.a[1,:]))
     comb=deepcopy(arena.a)
@@ -36,7 +36,11 @@ function gdebug(arena::Honeycomb,gstack::Array{UInt64,1},list::Array{Pointer,1})
     @inbounds for r=1:rows
         @inbounds for c=1:cols
             if Int(comb[r,c])>944 && Int(comb[r,c])<976 #greek letters unicode range
-                c<cols ? print(comb[r,c]) : println(comb[r,c])
+                if deb.d==3
+                    c<cols ? print_with_color(:red,"$(comb[r,c])") : print_with_color(:red,"$(comb[r,c])\n")
+                elseif deb.d==2
+                    c<cols ? print(comb[r,c]) : println(comb[r,c])
+                end
             else c<cols ? print(comb[r,c]) : println(comb[r,c])
             end
         end
