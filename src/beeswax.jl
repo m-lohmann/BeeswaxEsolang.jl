@@ -224,8 +224,10 @@ function beeswax(name::AbstractString,debug::Int,pause::Float64,limit::Int)
                 #For 'J' the jump to new location itself counts as move
                 arena.a[r,c]=='J' && list[ind].printstate==false ? nothing :
                 arena.a[r,c]=='J' && list[ind].printstate==true ? move(list,ind) :
-                arena.a[r,c]=='v' ? nothing :
-                arena.a[r,c]=='^' ? nothing : move(list,ind)
+                arena.a[r,c]=='v' && list[ind].printstate==true ? move(list,ind) :
+                arena.a[r,c]=='v' && list[ind].printstate==false ? nothing :
+                arena.a[r,c]=='^' && list[ind].printstate==true ? move(list,ind) :
+                arena.a[r,c]=='^' && list[ind].printstate==false ? nothing: move(list,ind)
             end
             cleanupip(list,rows,cols)
             rows=maximum(length(arena.a[:,1]))

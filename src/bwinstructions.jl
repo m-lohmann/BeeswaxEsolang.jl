@@ -200,42 +200,52 @@ end
 #   '
 function iftopzero(list::Array{Pointer,1},ind::Int)
     if list[ind].lstack[end]==0
-        move(list::Array{Pointer,1},ind::Int)
+        move(list,ind)
     end
 end
 
 #   "
 function iftopgrtzero(list::Array{Pointer,1},ind::Int)
     if list[ind].lstack[end]>0
-        move(list::Array{Pointer,1},ind::Int)
+        move(list,ind)
     end
 end
 
 #   K
 function iftopeqsec(list::Array{Pointer,1},ind::Int)
     if list[ind].lstack[end]==list[ind].lstack[end-1]
-        move(list::Array{Pointer,1},ind::Int)
+        move(list,ind)
     end
 end
 
 #   L
 function iftopgrtsec(list::Array{Pointer,1},ind::Int)
     if list[ind].lstack[end]>list[ind].lstack[end-1]
-        move(list::Array{Pointer,1},ind::Int)
+        move(list,ind)
     end
 end
 
 #   v
 function wait1(list::Array{Pointer,1},ind::Int)
-    list[ind].wait == 0 ? list[ind].wait=1 :
-    list[ind].wait == 1 ? (list[ind].wait=0;move(list,ind)) : nothing
+    if list[ind].printstate==false
+        @match list[ind].wait begin
+            0 => list[ind].wait=1
+            1 => (list[ind].wait=0;move(list,ind))
+            _ => nothing
+        end
+    end
 end
 
 #   ^
 function wait2(list::Array{Pointer,1},ind::Int)
-    list[ind].wait == 0 ? list[ind].wait=2 :
-    list[ind].wait == 2 ? list[ind].wait=1 :
-    list[ind].wait == 1 ? (list[ind].wait=0;move(list,ind)) : nothing
+    if list[ind].printstate==false
+        @match list[ind].wait begin
+            2 => list[ind].wait=1
+            0 => list[ind].wait=2
+            1 => (list[ind].wait=0;move(list,ind))
+            _ => nothing
+        end
+    end
 end
 
 #   J
