@@ -330,7 +330,7 @@ end
 
 #   ?
 function globalpop!(gstack::Array{UInt64,1})
-    length(gstack)>0 ? gstack=pop!(gstack) : nothing
+    length(gstack)>0 ? pop!(gstack) : nothing
 end
 
 #   A
