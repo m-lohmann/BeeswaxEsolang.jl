@@ -233,7 +233,7 @@ function beeswax(name::AbstractString,debug::Int,pause::Float64,limit::Int)
             rows=maximum(length(arena.a[:,1]))
             cols=maximum(length(arena.a[1,:]))
         end
-        sleep(pause)
+        pause>0.0 ? sleep(pause) : nothing
         debugger(arena,gstack,list,deb,ticks)
         ticks.t+=1
     end
@@ -304,6 +304,8 @@ function instruct(list::Array{Pointer,1},ind::Int,gstack::Array{UInt64,1},arena:
             '"' => iftopgrtzero(list,ind)             # a> 0 ? jump  move
             'K' => iftopeqsec(list,ind)               # a==b ? jump  move
             'L' => iftopgrtsec(list,ind)              # a> b ? jump  move
+    #unconditional skip
+            'Q' => skipnext(list,ind)                 #skip next
     #Pointer pause
             'v' => wait1(list,ind)                    # wait=1
             '^' => wait2(list,ind)                    # wait=2
