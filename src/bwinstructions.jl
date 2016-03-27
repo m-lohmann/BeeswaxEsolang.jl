@@ -225,6 +225,11 @@ function iftopgrtsec(list::Array{Pointer,1},ind::Int)
     end
 end
 
+#   Q
+function skipnext(list::Array{Pointer,1},ind::Int)
+    move(list,ind)
+end
+
 #   v
 function wait1(list::Array{Pointer,1},ind::Int)
     if list[ind].printstate==false
