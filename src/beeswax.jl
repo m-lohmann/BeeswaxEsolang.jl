@@ -129,13 +129,23 @@ function beeswax(name::AbstractString,debug::Int,pause::Float64,limit::Int)
     deb=Debugstate(debug)
 
     # read program file
-    deb.d>2 ? println("reading program file..."):nothing
-    prog=open(name)
-    code=readlines(prog)
-    close(prog)
-    
+    deb.d>2 ? println("reading program file..."):
+    deb.d>=9? println("one-liner test mode...."):nothing
+    if deb.d<9
+        prog=open(name)
+        code=readlines(prog)
+        close(prog)
+    elseif deb.d>=9
+        code=split(name)
+        deb.d==9?deb=Debugstate(2):deb=Debugstate(0)
+    end
     #check if it’s a valid program
-    ismatch(r"[\*_\\/]",readall(name))==true ? nothing : error("No starting point found. Not a valid beeswax program.")
+    deb.d<9&&ismatch(r"[\*_\\/]",readall(name))==true ? nothing : error("No starting point found. Not a valid beeswax program.")
+    if deb.d>=9
+        for i=1:length(code)
+            ismatch(r"[\*_\\/]",code[i])==true ? nothing : error("No starting point found. Not a valid beeswax program.")
+        end
+    end
 
     # create arena
     deb.d>2 ? println("creating honeycomb..."):nothing
