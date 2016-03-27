@@ -534,9 +534,10 @@ function ginputstring(gstack::Array{UInt64,1})
     print_with_color(:red,"s")
     input=readline(STDIN)
     inp=input[1:end]
-    for c=1:length(inp)
-        gstack=push!(gstack,inp[c])
+    for c=1:strwidth(inp) #cut off \r\n
+        gstack=push!(gstack,inp[chr2ind(inp,c)])
     end
+    push!(gstack,0x0a) #append newline, \n as newline on all systems
 end
 
 #   i
