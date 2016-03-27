@@ -216,6 +216,7 @@ Table with all cloning and deletion directions
 "      if lstack top value > 0 then skip next instruction, otherwise don’t skip next instruction.
 K      if lstack top value = 2nd value then skip next instruction, else don’t skip next instruction.
 L      if lstack top value > 2nd value then skip next instruction, else don’t skip next instruction.
+Q      skip next instruction.
 v      Pause movement for 1 tick.
 ^      Pause movement for 2 ticks.
 ```
@@ -342,8 +343,9 @@ T      top=(STDIN)      Read integer from STDIN and push its value on lstack.
 ```
 c      top=Int(STDIN)   Read character from STDIN and push its value on gstack.
 V                       Read string from STDIN and push its content as values on gstack
-                        in reverse order. The last character of the input string ends on
-                        top of gstack. 
+                        in reverse order. The last character of the input string ends on top
+                        of gstack. String content is stored as a list of Unicode code points.
+                        Last character is always \n on both LF and CRLF operating systems.
 i      top=(STDIN)      Read integer from STDIN and push its value on gstack.
 I      STDOUT=top       Return gstack top value as integer to STDOUT.
 C      STDOUT=Char(top) Return lstack top value as character(ASCII/Unicode) to STDOUT.
