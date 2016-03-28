@@ -129,22 +129,29 @@ function beeswax(name::AbstractString,debug::Int,pause::Float64,limit::Int)
     deb=Debugstate(debug)
 
     # read program file
-    deb.d>2 ? println("reading program file..."):
-    deb.d>=9? println("one-liner test mode...."):nothing
+    deb.d>2 ? println("reading program file...") :
+    deb.d>=9? println("one-liner test mode....") : nothing
     if deb.d<9
         prog=open(name)
         code=readlines(prog)
         close(prog)
     elseif deb.d>=9
         code=split(name)
-        deb.d==9?deb=Debugstate(2):deb=Debugstate(0)
+        deb.d==9 ? deb=Debugstate(2) : deb=Debugstate(0)
     end
+    
     #check if it’s a valid program
-    deb.d<9&&ismatch(r"[\*_\\/]",readall(name))==true ? nothing : error("No starting point found. Not a valid beeswax program.")
-    if deb.d>=9
-        for i=1:length(code)
-            ismatch(r"[\*_\\/]",code[i])==true ? nothing : error("No starting point found. Not a valid beeswax program.")
+    if deb.d<9
+        if ismatch(r"[\*_\\/]",readall(name))==false
+            error("No starting point found. Not a valid beeswax program.")
         end
+    elseif deb.d>=9
+        start=0
+        for i=1:length(code)
+            ismatch(r"[\*_\\/]",code[i])==true ? start+=1 : nothing
+        end
+        start==0 ? error("No starting point found. Not a valid beeswax program.") : nothing
+        deb.d==9 ? deb=Debugstate(2) : deb=Debugstate(0)
     end
 
     # create arena
