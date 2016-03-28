@@ -397,7 +397,23 @@ Run any program with `beeswax("program_name")`. Without further parameters the p
 ```
     0   No debug messages.
     1   Output of all local stack contents at every tick to STDOUT.
-    2   Output of program code with locations of all bees, plust local stack contents, for every tick.
+    2   Output of program code with locations of all bees, plus all stack contents, for every tick.
+    3   Output of program code with locations of all bees, plus all stack contents, for every tick. Bees are colored red.
+    4..8 The same as mode 3, but the screen is fully refreshed every tick.
+```
+Debug modes 9 and 10 are quick tools to check a short beeswax code snippet.
+```
+     Example for a two-line program directly entered via console:
+        
+     *`Hello World!`        p
+     `0> rebmun deretne`;"TN<
+     
+     Take care of proper escaping:
+     
+     beeswax("*`Hello World!`        p\n`0> rebmun deretne`;\"TN<",10,100)
+      
+    9   Quick test mode that outputs everything identical to debug mode 2
+    10  Quick test mode that ouputs no debug messages.
 ```
 
 ### Using REPL help
