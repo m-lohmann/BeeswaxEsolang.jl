@@ -129,17 +129,16 @@ function beeswax(name::AbstractString,debug::Int,pause::Float64,limit::Int)
     deb=Debugstate(debug)
 
     # read program file
-    deb.d>2 ? println("reading program file...") :
+    deb.d>2&&deb.d<9? println("reading program file..."):
     deb.d>=9? println("one-liner test mode....") : nothing
     if deb.d<9
         prog=open(name)
         code=readlines(prog)
         close(prog)
     elseif deb.d>=9
-        code=split(name)
-        deb.d==9 ? deb=Debugstate(2) : deb=Debugstate(0)
+        code=split(name,"\n")
     end
-    
+
     #check if it’s a valid program
     if deb.d<9
         if ismatch(r"[\*_\\/]",readall(name))==false
@@ -168,11 +167,14 @@ function beeswax(name::AbstractString,debug::Int,pause::Float64,limit::Int)
     arena=Honeycomb(reshape(fill(' ',rows*cols),rows,cols))
 
     @inbounds for r=1:rows
-        @inbounds for c=1:endof(code[r])
+        i=1;c=1
+        @inbounds while i<endof(code[r]) || c<=length(code[r])
             try
-                arena.a[r,c]=code[r][c]
+                arena.a[r,c]=code[r][i]
             catch
             end
+            i=nextind(code[r],i)
+            c+=1
         end
     end
 
@@ -181,8 +183,8 @@ function beeswax(name::AbstractString,debug::Int,pause::Float64,limit::Int)
 
     # generate IPs
     deb.d>2 ? println("generating bees..."):nothing
-    for c=1:cols
-        for r=1:rows
+    @inbounds for c=1:cols
+        @inbounds for r=1:rows
             arena.a[r,c] == ('*') ? pointer_all(list,r,c):
             arena.a[r,c] == ('\\')? pointer_diag1(list,r,c):
             arena.a[r,c] == ('/') ? pointer_diag2(list,r,c):
