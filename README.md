@@ -209,6 +209,61 @@ Table with all cloning and deletion directions
 |  4   |  -  |  X  |  -  |  X  |01235| 0/3 |  1  | 2/5 |
 |  5   |  X  |  -  |  -  |  X  |01234| 0/3 | 1/4 |  2  |
 
+#### Important notes about bee creation
+
+At the beginning of a beeswax program, during initialization, bees are created in a fixed order, as follows:
+
+First, the interpreter reads in the program code and creates the according honeycomb.
+Then, the honeycomb is scanned for the initial bee creation instructions `*`, `\`, `/` and `_`. The honeycomb is scanned column-wise, starting with the leftmost column. The column is scanned from top to bottom, then the process is continued in the next column, until the whole honeycomb is scanned.
+
+Each of the instructions creates a set of bees, which are pushed on a pointer/bee stack in order of creation.
+For each creation instruction, the standard creation order of bees always follows the pattern below, in a counterclockwise fashion, starting at the lowest number. This always leaves the bee that was created last on top of the pointer stack:
+
+```
+  2   1
+        
+3   β   0
+        
+  4   5
+```
+
+In the following examples `•` marks the top of the stack.
+
+`*` → [... 0 1 2 3 4 5]•
+
+`\` → [... 2 5]•
+
+`/` → [... 1 4]•
+
+`_` → [... 0 3]•
+
+During program execution, the instructions are executed according to the order of the bees on the pointer stack, from top to bottom. The last created bee is always on top of the stack and, every tick, its instruction is always executed first.
+
+The cloning instructions `X`, `E`, `H` and `W` create bees in an analogous fashion, always leaving out the opposite direction the bee is coming from:
+
+`X`: Check directions from 0 to 5, if the original bee is already moving in this direction, just let the bee move on. If the original bee is moving in the opposite direction, don’t create a clone. For every other position, clone the original bee and set its direction to the appropriate direction and push it on the pointer stack.
+
+`E`: Check direction 0, then direction 3. If the original bee is moving in one of these directions, just let the bee move on and don’t create a clone. If the original bee is coming from any different direction, change the direction of the original bee to 0, push a clone of that bee on the pointer stack, moving in direction 3.
+
+`H`: Check direction 1, then direction 4. If the original bee is moving in one of these directions, just let the bee move on and don’t create a clone. If the original bee is coming from any different direction, change the direction of the original bee to 1, push a clone of that bee on the pointer stack, moving in direction 4.
+
+`W`: Check direction 2, then direction 5. If the original bee is moving in one of these directions, just let the bee move on and don’t create a clone. If the original bee is coming from any different direction, change the direction of the original bee to 2, push a clone of that bee on the pointer stack, moving in direction 5.
+
+
+Here is a beeswax example program that prints `Hello, World!` to the console. This should demonstrate quite nicely how the bees that are created during initialization end up on the pointer stack. I leave it to the user to figure out the details. It shouldn’t be too hard:
+
+
+```
+W o    l   `
+ ``     e  H
+ `*`r`#`l`_`ld!
+  ``      \/
+  , o
+```
+
+
+If a bee leaves the honeycomb during program execution, it gets marked as dead. Once all instructions of the pointer stack are executed, the dead bees get deleted, and the stack gets cleaned up, leaving the general orders of bees intact.
+
 ### Program flow control/conditional operations
 
 ```
