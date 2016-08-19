@@ -262,7 +262,7 @@ W o    l   `
 ```
 
 
-If a bee leaves the honeycomb during program execution, it gets marked as dead. Once all instructions of the pointer stack are executed, the dead bees get deleted, and the stack gets cleaned up, leaving the general orders of bees intact.
+If a bee leaves the honeycomb during program execution, it gets marked as dead. Once all instructions of the pointer stack are executed, the dead bees get deleted, and the stack gets cleaned up, leaving the general order of bees intact.
 
 ### Program flow control/conditional operations
 
@@ -292,8 +292,7 @@ G       Get value from honeycomb[r,c]=[2nd,3rd] and put it as top value on local
 #### Relative addressing
 
 ```
-Y       Drop local stack
- top value to cell at relative [r,c]=[2nd,3rd].
+Y       Drop local stack top value to cell at relative [r,c]=[2nd,3rd].
         If relative [r,c] are lower than absolute [1,1], nothing is dropped.
 Z       Get value from cell at relative [a,b]=[2nd,3rd] and put it as top value on local stack.
         If relative [r,c] are lower than absolute [1,1], then local stack top value=0.
@@ -363,7 +362,7 @@ g      Read top value of gstack and set it as top value of lstack.
 %      top=top%2nd     lstack[3,2,5]• → lstack[3,2,1]• (mod operator)
 0...9  top=digit       lstack[3,2,1]• → lstack[3,2,7]• (for integer 7)
 P      top=top+1       lstack[3,2,1]• → lstack[3,2,2]•
-M      top=top-1       lstack[3,2,1]• → lstack[3,2,18446744073709551615]• (due to wrap-around)
+M      top=top-1       lstack[3,2,1]• → lstack[3,2,0]•
 B      top=top^2nd     lstack[1,2,3]• → lstack[1,2,9]•
 ```
 
@@ -373,7 +372,7 @@ B      top=top^2nd     lstack[1,2,3]• → lstack[1,2,9]•
 &      top=top AND 2nd lstack[3,2,1]• → lstack[3,2,0]•
 |      top=top OR 2nd  lstack[3,2,1]• → lstack[3,2,3]•
 $      top=top XOR 2nd lstack[3,2,1]• → lstack[3,2,3]•
-!      top=NOT top     lstack[3,2,1]• → lstack[3,2,18446744073709551614]• (due to wrap-around)
+!      top=NOT top     lstack[3,2,1]• → lstack[3,2,18446744073709551614]•
 (      top=top<<2nd    lstack[3,2,1]• → lstack[3,2,2]• (arithmetic shift left)
 )      top=top>>>2nd   lstack[3,2,1]• → lstack[3,2,0]• (logical shift right)
 [      top=top<<(2nd%64)+top>>>(64-2nd%64) (roll bits left)
