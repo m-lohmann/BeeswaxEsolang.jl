@@ -402,7 +402,7 @@ V                       Read string from STDIN and push its content as values on
                         Last character is always \n on both LF and CRLF operating systems.
 i      top=(STDIN)      Read integer from STDIN and push its value on gstack.
 I      STDOUT=top       Return gstack top value as integer to STDOUT.
-C      STDOUT=Char(top) Return lstack top value as character(ASCII/Unicode) to STDOUT.
+C      STDOUT=Char(top) Return gstack top value as character(ASCII/Unicode) to STDOUT.
 `      Toggle STDOUT    Return all following encountered symbols as characters directly to STDOUT.
                         The next ` switches back to normal mode again.
 N      STDOUT=newline   Output newline character to STDOUT.
