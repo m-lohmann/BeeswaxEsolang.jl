@@ -1,0 +1,46 @@
+Beeswax is a stack-based language. The instruction pointers (bees) carry small local stacks (lstacks) of fixed length 3 that can interact with the global stack (gstack) of unrestricted length. The local stacks do not behave exactly like the stack specified in this task, but the global stack does.
+
+Push (1): f pushes the topmost value of lstack on gstack.
+
+     instruction: _f
+
+     gstack:      UInt64[0]•         (at the beginning of a program lstack is initialized to [0 0 0]
+
+Push (2): e pushes all three lstack values on gstack, in reversed order.
+
+     instruction: _e
+
+     gstack:      UInt64[0 0 0]•         (at the beginning of a program lstack is initialized to [0 0 0]
+
+Push (3): i pushes an integer from STDIN as UInt64 value on gstack.
+
+     instruction: _i
+     input:       i123
+
+     gstack:      UInt64[123]•
+
+Push (4): c pushes the Unicode codepoint value of a character from STDIN as UInt64 value on gstack.
+
+     instruction: _c
+     input:       cH
+
+     gstack:      UInt64[72]•
+
+Push (5): V pushes the Unicode codepoint values of the characters of a string given at STDIN as UInt64 values on gstack, last character, followed by newline on top.
+
+     instruction: _V
+     input:       sHello, α∀
+
+     gstack:      UInt64[72 101 108 108 111 44 32 945 8704 10]•
+
+Pop: g{? reads the top value of gstack and stores it on top of lstack. Then outputs top value of lstack to STDOUT and finally pops gstack.
+
+Empty: Ag?';`gstack is empty` pushes length of gstack on gstack, reads top value of gstack, stores it as top value of lstack and prints gstack is empty if lstack top=0.
+
+Top: g{ reads the top value of gstack, stores it on top of lstack. Then outputs top value of lstack to STDOUT. If gstack is empty, this instruction does not do anything but return the topmost value of lstack.
+
+To make sure that there is any value on gstack, you would need to check for gstack length first, using the method shown in the “Empty” example above:
+
+*Ag'{`gstack empty, no value to return`
+
+This method returns the top value of gstack only if gstack is not empty, otherwise it outputs gstack empty, no value to return to STDOUT. 

@@ -1,0 +1,15 @@
+beeswax has 4 conditional operators that act like the ternary ?: operator in C or Julia. Due to the 2-dimensional nature of beeswax it is possible to realize complex branching structures this way.
+
+The 4 conditional operators are:
+
+ 
+'      lstack top value == 0 ? skip next instruction : don’t skip next instruction.
+"      lstack top value  > 0 ? skip next instruction : don’t skip next instruction.
+K      lstack top value == 2nd value ? skip next instruction : don’t skip next instruction.
+L      lstack top value  > 2nd value ? skip next instruction : don’t skip next instruction.
+
+Example:
+
+_`Enter integer n:`T'p`n = 0`>N`Enter integer m:`T'p`m = 0`>` and `Kp`m = n`;
+                     >`n > 0`d                     >`m > 0`d        >Lp`m > n`;
+                                                                      >`m < n`;
