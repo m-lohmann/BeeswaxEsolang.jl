@@ -122,9 +122,9 @@ function beeswax(name::AbstractString,debug::Int,pause::Float64,limit::Int)
     # generate IP list
     # generate global stack
     list=Pointer[]
-    sizehint!(list,100000)
+    sizehint!(list,10000)
     gstack=UInt64[]
-    sizehint!(gstack,100000)
+    sizehint!(gstack,10000)
     ticks=Time(0)
     deb=Debugstate(debug)
 
@@ -141,7 +141,7 @@ function beeswax(name::AbstractString,debug::Int,pause::Float64,limit::Int)
 
     #check if it’s a valid program
     if deb.d<9
-        if ismatch(r"[\*_\\/]",readall(name))==false
+        if ismatch(r"[\*_\\/]",readstring(name))==false
             error("No starting point found. Not a valid beeswax program.")
         end
     elseif deb.d>=9
