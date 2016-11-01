@@ -2,7 +2,8 @@ function debugger(arena::Honeycomb,gstack::Array{UInt64,1},list::Array{Pointer,1
     if deb.d==1
         println("\nticks:",ticks.t)
         @inbounds for ind=1:length(list)
-            println(ind,"  instr: ",arena.a[list[ind].loc[1],list[ind].loc[2]],"  dir: ",showdir(list[ind].dir),"  loc: ",list[ind].loc,"  ",transpose(list[ind].lstack),"•")
+            #println(ind,"  instr: ",arena.a[list[ind].loc[1],list[ind].loc[2]],"  dir: ",showdir(list[ind].dir),"  loc: ",list[ind].loc,"  ",transpose(list[ind].lstack),"•")
+            println(ind,"  instr: ",arena.a[list[ind].loc[1],list[ind].loc[2]],"  dir: ",showdir(list[ind].dir),"  loc: ",list[ind].loc,"  ",transpose(convert(Array{BigInt},list[ind].lstack)),"•")
         end
         print("\n[")
         @inbounds for n=1:length(gstack)
@@ -28,10 +29,11 @@ function gdebug(arena::Honeycomb,gstack::Array{UInt64,1},list::Array{Pointer,1},
     end
 
     @inbounds for ind=1:length(list)
-        println(Char(ind+944),"  ",ind,"  instr: ",arena.a[list[ind].loc[1],list[ind].loc[2]]," wait: ",showwait(list[ind].wait)," dir: ",showdir(list[ind].dir),"  loc: ",list[ind].loc,"  ",transpose(list[ind].lstack),"•")
+        #println(Char(ind+944),"  ",ind,"  instr: ",arena.a[list[ind].loc[1],list[ind].loc[2]]," wait: ",showwait(list[ind].wait)," dir: ",showdir(list[ind].dir),"  loc: ",list[ind].loc,"  ",transpose(list[ind].lstack),"•")
+        println(Char(ind+944),"  ",ind,"  instr: ",arena.a[list[ind].loc[1],list[ind].loc[2]]," wait: ",showwait(list[ind].wait)," dir: ",showdir(list[ind].dir),"  loc: ",list[ind].loc,"  ",transpose(convert(Array{BigInt},list[ind].lstack)),"•")
     end
 
-    println("\ngstack: ",transpose(gstack),"•\n\n")
+    println("\ngstack: ",transpose(convert(Array{BigInt},gstack)),"•\n\n")
 
     @inbounds for r=1:rows
         @inbounds for c=1:cols

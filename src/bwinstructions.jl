@@ -449,12 +449,20 @@ end
 
 #   :
 function intdiv(list::Array{Pointer,1},ind::Int)
-    list[ind].lstack[end]=div(list[ind].lstack[end],list[ind].lstack[end-1])
+    try
+        list[ind].lstack[end]=div(list[ind].lstack[end],list[ind].lstack[end-1])
+    catch
+        error("Instruction ':': Division by zero error!")
+    end
 end
 
 #   %
 function mod(list::Array{Pointer,1},ind::Int)
-    list[ind].lstack[end]=list[ind].lstack[end] % list[ind].lstack[end-1]
+    try
+        list[ind].lstack[end]=list[ind].lstack[end] % list[ind].lstack[end-1]
+    catch
+        error("Instruction '%': Modulo by zero error!")
+    end
 end
 
 #   0,1,2,3,4,5,6,7,8,9
