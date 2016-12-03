@@ -28,13 +28,13 @@ end
 `beeswax(name::ASCIIString)`  
 
 
-        beeswax("buzz.bswx") runs the program buzz.bswx up to a default limit of 1000 ticks.
-        Equivalent to beeswax("buzz.bswx",0,0.0,1000).
+        beeswax("buzz.bswx") runs the program buzz.bswx up to a default limit of 1 million ticks.
+        Equivalent to beeswax("buzz.bswx",0,0.0,1000000).
 
 
 """
 function beeswax(name::AbstractString)
-    beeswax(name,0,0.0,1000)
+    beeswax(name,0,0.0,1000000)
 end
 
 
