@@ -233,23 +233,19 @@ end
 #   v
 function wait1(list::Array{Pointer,1},ind::Int)
     if list[ind].printstate==false
-        @match list[ind].wait begin
-            0 => list[ind].wait=1
-            1 => (list[ind].wait=0;move(list,ind))
-            _ => nothing
-        end
+        w=list[ind].wait
+        w == 0 ? list[ind].wait=1:
+        w == 1 ? (list[ind].wait=0;move(list,ind)):nothing
     end
 end
 
 #   ^
 function wait2(list::Array{Pointer,1},ind::Int)
     if list[ind].printstate==false
-        @match list[ind].wait begin
-            2 => list[ind].wait=1
-            0 => list[ind].wait=2
-            1 => (list[ind].wait=0;move(list,ind))
-            _ => nothing
-        end
+        w=list[ind].wait
+        w == 2 ? list[ind].wait=1:
+        w == 0 ? list[ind].wait=2:
+        w == 1 ? (list[ind].wait=0;move(list,ind)): nothing
     end
 end
 

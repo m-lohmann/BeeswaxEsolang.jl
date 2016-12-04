@@ -275,15 +275,13 @@ end
 
 
 function move(list::Array{Pointer,1},ind::Int)
-    @match list[ind].dir begin
-        0 => list[ind].loc=list[ind].loc+[0,1]
-        1 => list[ind].loc=list[ind].loc+[-1,0]
-        2 => list[ind].loc=list[ind].loc+[-1,-1]
-        3 => list[ind].loc=list[ind].loc+[0,-1]
-        4 => list[ind].loc=list[ind].loc+[1,0]
-        5 => list[ind].loc=list[ind].loc+[1,1]
-        _ => nothing
-    end
+    d=list[ind].dir
+    d == 0 ? list[ind].loc=list[ind].loc+[0,1]:
+    d == 1 ? list[ind].loc=list[ind].loc+[-1,0]:
+    d == 2 ? list[ind].loc=list[ind].loc+[-1,-1]:
+    d == 3 ? list[ind].loc=list[ind].loc+[0,-1]:
+    d == 4 ? list[ind].loc=list[ind].loc+[1,0]:
+    d == 5 ? list[ind].loc=list[ind].loc+[1,1]:nothing
 end
 
 
@@ -295,106 +293,93 @@ end
 function instruct(list::Array{Pointer,1},ind::Int,gstack::Array{UInt64,1},arena::Honeycomb,r::Int,c::Int)
     if list[ind].printstate==false
 
-        @match arena.a[r,c] begin
-    #Pointer redirection
-            '>' => redir_r(list,ind)
-            'q' => redir_dr(list,ind)
-            'p' => redir_dl(list,ind)
-            '<' => redir_l(list,ind)
-            'b' => redir_ul(list,ind)
-            'd' => redir_ur(list,ind)
-            'a' => rotate_cw(list,ind)
-            'x' => rotate_ccw(list,ind)
-    #Pointer mirroring
-            's' => mirror_main1(list,ind)
-            't' => mirror_main2(list,ind)
-            'u' => mirror_main3(list,ind)
-            'j' => mirror_half1(list,ind)
-            'k' => mirror_half2(list,ind)
-            'l' => mirror_half3(list,ind)
-            'O' => mirror_all(list,ind)
-    #Pointer catching
-            'm' => catch_diag1(list,ind)
-            'n' => catch_diag2(list,ind)
-            'o' => catch_diag3(list,ind)
-            '#' => catch_all(list,ind)
-    #conditionals
-            '\''=> iftopzero(list,ind)               # a==0 ? jump  move
-            '"' => iftopgrtzero(list,ind)             # a> 0 ? jump  move
-            'K' => iftopeqsec(list,ind)               # a==b ? jump  move
-            'L' => iftopgrtsec(list,ind)              # a> b ? jump  move
-    #unconditional skip
-            'Q' => skipnext(list,ind)                 #skip next
-    #Pointer pause
-            'v' => wait1(list,ind)                    # wait=1
-            '^' => wait2(list,ind)                    # wait=2
-    #Pointer teleport
-            'J' => jumpto(list,ind)                   # row,col=a,b
-    #stack manipulations
-            'g' => globalgetfirst(list,ind,gstack)    # a=A
-            'f' => localfirst2global(list,ind,gstack) # A=a
-            'e' => localflush2global(list,ind,gstack) # A,B,C=c,b,a
-            'U' => globalflush2local(list,ind,gstack)
-            '~' => localflip12!(list,ind)              # a=b, b=a
-            '@' => localflip13!(list,ind)              # a=c, c=a
-            'F' => localallfirst!(list,ind)            # a,b,c=a
-            'z' => localallzero!(list,ind)             # a,b,c=0
-            'y' => globalrotdown!(list,ind,gstack)     
-            'h' => globalrotup!(list,ind,gstack)
-            '=' => globalduptop!(gstack)               # A,B,C,...  -> A,A,B,C,...
-            '?' => globalpop!(gstack)                  # A,B,C,D,... -> B,C,D,...
-            'A' => globalstacklen!(gstack)             #length(A,B,C,...)
-    #code manipulation
-            'D' => adropto(list,ind,arena)
-            'G' => agetfrom(list,ind,arena)
-            'Y' => rdropto(list,ind,arena)
-            'Z' => rgetfrom(list,ind,arena) 
-    #arithmetic
-            '+' => add(list,ind)                  # a = a+b
-            '-' => sub(list,ind)                  # a = a-b
-            '.' => mul(list,ind)                  # a = a*b
-            ':' => intdiv(list,ind)               # a = a/b
-            '%' => mod(list,ind)                  # a = a%b
-            '0' => setnum(list,ind,arena)         # a = 0
-            '1' => setnum(list,ind,arena)         # a = 1
-            '2' => setnum(list,ind,arena)
-            '3' => setnum(list,ind,arena)
-            '4' => setnum(list,ind,arena)         # ....
-            '5' => setnum(list,ind,arena)
-            '6' => setnum(list,ind,arena)
-            '7' => setnum(list,ind,arena)
-            '8' => setnum(list,ind,arena)
-            '9' => setnum(list,ind,arena)
-            'P' => increment(list,ind)            # a = a+1
-            'M' => decrement(list,ind)            # a = a-1
-            'B' => pow(list,ind)                  # a = a^b
-    #bitwise operations
-            '&' => bitand(list,ind)               # a = a&b
-            '|' => bitor(list,ind)                # a = a|b
-            '\$'=> bitxor(list,ind)              # a = a$b
-            '!' => bitnot(list,ind)               # a = ~a
-            '(' => bitshiftleft(list,ind)         # a = a<<b
-            ')' => bitshiftright(list,ind)        # a = a>>>b
-            '[' => bitrollleft(list,ind)          # a = a<<b%64+a>>>(64-b)%64
-            ']' => bitrollright(list,ind)         # a = a>>>b%64+a<<(64-b)%64
-    #I/O
-            'c' => ginputchar(gstack)             # A = Char(STDIN) 
-            'V' => ginputstring(gstack)           # A,B,C,D,... = "S,T,R,I,N,G,..."
-            'i' => ginputint(gstack)              # A = UInt64(STDIN)
-            'C' => goutputchar(gstack)            # STDOUT='A'
-            'I' => goutputint(gstack)             # STDOUT=Int(A)
-            ',' => linputchar(list,ind)           # a = Char(STDIN)
-            'T' => linputint(list,ind)            # a = UInt64(STDIN)
-            '}' => loutputchar(list,ind)          # STDOUT='a'
-            '{' => loutputint(list,ind)           # STDOUT=Int(a)
-            '`' => toggleoutput(list,ind)
-            'N' => newline()                      # STDOUT='\n'
-            'r' => readfile(list,ind,gstack)      #to global stack
-            'w' => writefile(list,ind,gstack)     #from global stack
-            _   => nothing
-        end
+        c=arena.a[r,c]
 
-    elseif list[ind].printstate==true
+        c == '>' ? redir_r(list,ind)                 :    #Pointer redirection
+        c == 'q' ? redir_dr(list,ind)                :
+        c == 'p' ? redir_dl(list,ind)                :
+        c == '<' ? redir_l(list,ind)                 :
+        c == 'b' ? redir_ul(list,ind)                :
+        c == 'd' ? redir_ur(list,ind)                :
+        c == 'a' ? rotate_cw(list,ind)               :
+        c == 'x' ? rotate_ccw(list,ind               :
+        c == 's' ? mirror_main1(list,ind)            :    #Pointer mirroring
+        c == 't' ? mirror_main2(list,ind)            :
+        c == 'u' ? mirror_main3(list,ind)            :
+        c == 'j' ? mirror_half1(list,ind)            :
+        c == 'k' ? mirror_half2(list,ind)            :
+        c == 'l' ? mirror_half3(list,ind)            :
+        c == 'O' ? mirror_all(list,ind               :
+        c == 'm' ? catch_diag1(list,ind)             :    #Pointer catching
+        c == 'n' ? catch_diag2(list,ind)             :
+        c == 'o' ? catch_diag3(list,ind)             :
+        c == '#' ? catch_all(list,ind)               :
+        c == '\''? iftopzero(list,ind)               : # a==0 ? jump  move  #conditionals 
+        c == '"' ? iftopgrtzero(list,ind)            : # a> 0 ? jump  move 
+        c == 'K' ? iftopeqsec(list,ind)              : # a==b ? jump  move 
+        c == 'L' ? iftopgrtsec(list,ind)             : # a> b ? jump  move 
+        c == 'Q' ? skipnext(list,ind)                : #skip next           #unconditional skip
+        c == 'v' ? wait1(list,ind)                   : # wait=1             #Pointer pause
+        c == '^' ? wait2(list,ind)                   : # wait=2
+        c == 'J' ? jumpto(list,ind)                  : # row,col=a,         #Pointer teleport
+        c == 'g' ? globalgetfirst(list,ind,gstack)   : # a=                 #stack manipulations
+        c == 'f' ? localfirst2global(list,ind,gstack): # A=
+        c == 'e' ? localflush2global(list,ind,gstack): # A,B,C=c,b,
+        c == 'U' ? globalflush2local(list,ind,gstack):
+        c == '~' ? localflip12!(list,ind)            : # a=b, b=a 
+        c == '@' ? localflip13!(list,ind)            : # a=c, c=a 
+        c == 'F' ? localallfirst!(list,ind)          : # a,b,c=a  
+        c == 'z' ? localallzero!(list,ind)           : # a,b,c=0  
+        c == 'y' ? globalrotdown!(list,ind,gstack)   :
+        c == 'h' ? globalrotup!(list,ind,gstack)     :
+        c == '=' ? globalduptop!(gstack)             : # A,B,C,...  -> A,A,B,C,...
+        c == '?' ? globalpop!(gstack)                : # A,B,C,D,... -> B,C,D,... 
+        c == 'A' ? globalstacklen!(gstack)           : #length(A,B,C,...) 
+        c == 'D' ? adropto(list,ind,arena)           :                    #code manipulation
+        c == 'G' ? agetfrom(list,ind,arena           :
+        c == 'Y' ? rdropto(list,ind,arena)           :
+        c == 'Z' ? rgetfrom(list,ind,arena)          :
+        c == '+' ? add(list,ind)                     : # a = a+           #arithmetic
+        c == '-' ? sub(list,ind)                     : # a = a-
+        c == '.' ? mul(list,ind)                     : # a = a*
+        c == ':' ? intdiv(list,ind)                  : # a = a/
+        c == '%' ? mod(list,ind)                     : # a = a%
+        c == '0' ? setnum(list,ind,arena)            : # a = 0 
+        c == '1' ? setnum(list,ind,arena)            : # a = 1 
+        c == '2' ? setnum(list,ind,arena)            : 
+        c == '3' ? setnum(list,ind,arena)            : 
+        c == '4' ? setnum(list,ind,arena)            : # ....  
+        c == '5' ? setnum(list,ind,arena)            :          
+        c == '6' ? setnum(list,ind,arena)            : 
+        c == '7' ? setnum(list,ind,arena)            : 
+        c == '8' ? setnum(list,ind,arena)            : 
+        c == '9' ? setnum(list,ind,arena)            : 
+        c == 'P' ? increment(list,ind)               : # a = a+
+        c == 'M' ? decrement(list,ind)               : # a = a-
+        c == 'B' ? pow(list,ind)                     : # a = a^
+        c == '&' ? bitand(list,ind)                  : # a = a&           #bitwise operations
+        c == '|' ? bitor(list,ind)                   : # a = a|
+        c == '\$'? bitxor(list,ind)                  : # a = a$b
+        c == '!' ? bitnot(list,ind)                  : # a = ~a
+        c == '(' ? bitshiftleft(list,ind)            : # a = a<<b  
+        c == ')' ? bitshiftright(list,ind)           : # a = a>>>b 
+        c == '[' ? bitrollleft(list,ind)             : # a = a<<b%64+a>>>(64-b)%64 
+        c == ']' ? bitrollright(list,ind)            : # a = a>>>b%64+a<<(64-b)%64 
+        c == 'c' ? ginputchar(gstack)                : # A = Char(STDIN)                  #I/O operations
+        c == 'V' ? ginputstring(gstack)              : # A,B,C,D,... = "S,T,R,I,N,G,...
+        c == 'i' ? ginputint(gstack)                 : # A = UInt64(STDIN) 
+        c == 'C' ? goutputchar(gstack)               : # STDOUT='A'
+        c == 'I' ? goutputint(gstack)                : # STDOUT=Int(A) 
+        c == ',' ? linputchar(list,ind)              : # a = Char(STDIN
+        c == 'T' ? linputint(list,ind)               : # a = UInt64(STDIN) 
+        c == '}' ? loutputchar(list,ind)             : # STDOUT='a'
+        c == '{' ? loutputint(list,ind)              : # STDOUT=Int(a) 
+        c == '`' ? toggleoutput(list,ind)            : # toggle character output
+        c == 'N' ? newline()                         : # STDOUT='\n
+        c == 'r' ? readfile(list,ind,gstack)         : #to global stack
+        c == 'w' ? writefile(list,ind,gstack)        : break #from global stack
+
+    else #if list[ind].printstate==true
         if arena.a[r,c] =='`'
             toggleoutput(list,ind)
         else
