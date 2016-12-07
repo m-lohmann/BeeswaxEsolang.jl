@@ -194,16 +194,7 @@ function beeswax(name::AbstractString,debug::Int,pause::Float64,limit::Int)
 
     debugger(arena,gstack,list,deb,ticks)
     ticks.t+=1
-#=    #move new pointers
-    deb.d>2 ? println("moving new bees..."):nothing
-    for ind=1:length(list)
-       move(list,ind)
-    end
-    deb.d>2 ? println("cleaning up bees..."):nothing
-    cleanupip(list,rows,cols)
 
-    ticks.t+=1
-    debugger(arena,gstack,list,deb,ticks)=#
     deb.d>2 ? println("running program..."):nothing
 
     while length(list)>0 && ticks.t<=limit
