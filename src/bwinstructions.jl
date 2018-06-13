@@ -69,84 +69,84 @@ end
 
 #   s
 function mirror_main1(list::Array{Pointer,1},ind::Int)
-    list[ind].dir==0 ? list[ind].dir=4:
-    list[ind].dir==1 ? list[ind].dir=3:
-    list[ind].dir==3 ? list[ind].dir=1:
-    list[ind].dir==4 ? list[ind].dir=0:nothing
+    list[ind].dir==0 ? list[ind].dir=4 :
+    list[ind].dir==1 ? list[ind].dir=3 :
+    list[ind].dir==3 ? list[ind].dir=1 :
+    list[ind].dir==4 ? list[ind].dir=0 : nothing
 end
 
 #   t
 function mirror_main2(list::Array{Pointer,1},ind::Int)
-    list[ind].dir==0 ? list[ind].dir=2:
-    list[ind].dir==2 ? list[ind].dir=0:
-    list[ind].dir==3 ? list[ind].dir=5:
-    list[ind].dir==5 ? list[ind].dir=0:nothing
+    list[ind].dir==0 ? list[ind].dir=2 :
+    list[ind].dir==2 ? list[ind].dir=0 :
+    list[ind].dir==3 ? list[ind].dir=5 :
+    list[ind].dir==5 ? list[ind].dir=0 : nothing
 end
 
 #   u
 function mirror_main3(list::Array{Pointer,1},ind::Int)
-    list[ind].dir==1 ? list[ind].dir=5:
-    list[ind].dir==2 ? list[ind].dir=4:
-    list[ind].dir==4 ? list[ind].dir=2:
-    list[ind].dir==5 ? list[ind].dir=1:nothing
+    list[ind].dir==1 ? list[ind].dir=5 :
+    list[ind].dir==2 ? list[ind].dir=4 :
+    list[ind].dir==4 ? list[ind].dir=2 :
+    list[ind].dir==5 ? list[ind].dir=1 : nothing
 end
 
 #   j
 function mirror_half1(list::Array{Pointer,1},ind::Int)
-    list[ind].dir==0 ? list[ind].dir=3:
-    list[ind].dir==1 ? list[ind].dir=2:
-    list[ind].dir==2 ? list[ind].dir=1:
-    list[ind].dir==3 ? list[ind].dir=0:
-    list[ind].dir==4 ? list[ind].dir=5:
-    list[ind].dir==5 ? list[ind].dir=4:nothing
+    list[ind].dir==0 ? list[ind].dir=3 :
+    list[ind].dir==1 ? list[ind].dir=2 :
+    list[ind].dir==2 ? list[ind].dir=1 :
+    list[ind].dir==3 ? list[ind].dir=0 :
+    list[ind].dir==4 ? list[ind].dir=5 :
+    list[ind].dir==5 ? list[ind].dir=4 : nothing
 end
 
 #   k
 function mirror_half2(list::Array{Pointer,1},ind::Int)
-    list[ind].dir==0 ? list[ind].dir=1:
-    list[ind].dir==1 ? list[ind].dir=0:
-    list[ind].dir==2 ? list[ind].dir=5:
-    list[ind].dir==3 ? list[ind].dir=4:
-    list[ind].dir==4 ? list[ind].dir=3:
-    list[ind].dir==5 ? list[ind].dir=2:nothing
+    list[ind].dir==0 ? list[ind].dir=1 :
+    list[ind].dir==1 ? list[ind].dir=0 :
+    list[ind].dir==2 ? list[ind].dir=5 :
+    list[ind].dir==3 ? list[ind].dir=4 :
+    list[ind].dir==4 ? list[ind].dir=3 :
+    list[ind].dir==5 ? list[ind].dir=2 : nothing
 end
 
 #   l
 function mirror_half3(list::Array{Pointer,1},ind::Int)
-    list[ind].dir==0 ? list[ind].dir=5:
-    list[ind].dir==1 ? list[ind].dir=4:
-    list[ind].dir==2 ? list[ind].dir=3:
-    list[ind].dir==3 ? list[ind].dir=2:
-    list[ind].dir==4 ? list[ind].dir=1:
-    list[ind].dir==5 ? list[ind].dir=0:nothing
+    list[ind].dir==0 ? list[ind].dir=5 :
+    list[ind].dir==1 ? list[ind].dir=4 :
+    list[ind].dir==2 ? list[ind].dir=3 :
+    list[ind].dir==3 ? list[ind].dir=2 :
+    list[ind].dir==4 ? list[ind].dir=1 :
+    list[ind].dir==5 ? list[ind].dir=0 : nothing
 end
 
 #   O
 function mirror_all(list::Array{Pointer,1},ind::Int)
-    list[ind].dir==0 ? list[ind].dir=3:
-    list[ind].dir==1 ? list[ind].dir=4:
-    list[ind].dir==2 ? list[ind].dir=5:
-    list[ind].dir==3 ? list[ind].dir=0:
-    list[ind].dir==4 ? list[ind].dir=1:
-    list[ind].dir==5 ? list[ind].dir=2:nothing
+    list[ind].dir==0 ? list[ind].dir=3 :
+    list[ind].dir==1 ? list[ind].dir=4 :
+    list[ind].dir==2 ? list[ind].dir=5 :
+    list[ind].dir==3 ? list[ind].dir=0 :
+    list[ind].dir==4 ? list[ind].dir=1 :
+    list[ind].dir==5 ? list[ind].dir=2 : nothing
 end
 
 #   m
 function catch_diag1(list::Array{Pointer,1},ind::Int)
-    list[ind].dir==2 ? list[ind].alive=false:
-    list[ind].dir==5 ? list[ind].alive=false:nothing
+    list[ind].dir==2 ? list[ind].alive=false :
+    list[ind].dir==5 ? list[ind].alive=false : nothing
 end
 
 #   n
 function catch_diag2(list::Array{Pointer,1},ind::Int)
-    list[ind].dir==1 ? list[ind].alive=false:
-    list[ind].dir==4 ? list[ind].alive=false:nothing
+    list[ind].dir==1 ? list[ind].alive=false :
+    list[ind].dir==4 ? list[ind].alive=false : nothing
 end
 
 #   o
 function catch_diag3(list::Array{Pointer,1},ind::Int)
-    list[ind].dir==0 ? list[ind].alive=false:
-    list[ind].dir==3 ? list[ind].alive=false:nothing
+    list[ind].dir==0 ? list[ind].alive=false :
+    list[ind].dir==3 ? list[ind].alive=false : nothing
 end
 
 #   #
@@ -234,8 +234,8 @@ end
 function wait1(list::Array{Pointer,1},ind::Int)
     if list[ind].printstate==false
         w=list[ind].wait
-        w == 0 ? list[ind].wait=1:
-        w == 1 ? (list[ind].wait=0;move(list,ind)):nothing
+        w=(w+1)%2
+        w == 0 ? move(list,ind) : nothing
     end
 end
 
@@ -243,9 +243,8 @@ end
 function wait2(list::Array{Pointer,1},ind::Int)
     if list[ind].printstate==false
         w=list[ind].wait
-        w == 2 ? list[ind].wait=1:
-        w == 0 ? list[ind].wait=2:
-        w == 1 ? (list[ind].wait=0;move(list,ind)): nothing
+        w=(w+2)%3
+        w==0 ? move(list,ind) : nothing
     end
 end
 
@@ -337,7 +336,7 @@ end
 #   A
 function globalstacklen!(gstack::Array{UInt64,1})
     gstack=push!(gstack,length(gstack))
-    
+
 end
 
 #code manipulation
@@ -417,7 +416,7 @@ function rgetfrom(list::Array{Pointer,1},ind::Int,arena::Honeycomb)
     y=list[ind].loc[2]
     ro=reinterpret(Int64,r)
     co=reinterpret(Int64,c)
-    
+
     if x+ro<1 || y+co<1 || x+ro>rows || y+co>cols
         list[ind].lstack[end]=0
     else
@@ -453,7 +452,7 @@ function intdiv(list::Array{Pointer,1},ind::Int)
 end
 
 #   %
-function mod(list::Array{Pointer,1},ind::Int)
+function modulus(list::Array{Pointer,1},ind::Int)
     try
         list[ind].lstack[end]=list[ind].lstack[end] % list[ind].lstack[end-1]
     catch
@@ -527,7 +526,6 @@ end
 
 #   c
 function ginputchar(gstack::Array{UInt64,1})
-    print_with_color(:green,"c")
     input=readline(STDIN)
     inp=Char(input[1])
     gstack=push!(gstack,inp)
@@ -535,7 +533,6 @@ end
 
 #   V
 function ginputstring(gstack::Array{UInt64,1})
-    print_with_color(:red,"s")
     input=readline(STDIN)
     inp=input[1:end]
     for c=1:strwidth(inp) #cut off \r\n
@@ -546,7 +543,6 @@ end
 
 #   i
 function ginputint(gstack::Array{UInt64,1})
-    print_with_color(:yellow,"i")
     input=readline(STDIN)
     gstack=push!(gstack,parse(UInt64,input))
 end
@@ -563,7 +559,6 @@ end
 
 #   ,
 function linputchar(list::Array{Pointer,1},ind::Int)
-    print_with_color(:green,"c")
     input=readline(STDIN)
     inp=(input[1])
     list[ind].lstack[end]=inp
@@ -571,7 +566,6 @@ end
 
 #   T
 function linputint(list::Array{Pointer,1},ind::Int)
-    print_with_color(:yellow,"i")
     input=readline(STDIN)
     list[ind].lstack[end]=parse(UInt64,input)
 end
@@ -600,6 +594,7 @@ end
 
 #   r
 function readfile(list::Array{Pointer,1},ind::Int,gstack::Array{UInt64,1})
+    code=()
     namebytes=list[ind].lstack[end]
     if namebytes>length(gstack)
         error("$(list[ind].loc)\nAmount of file name bytes longer than gstack!")
@@ -609,7 +604,7 @@ function readfile(list::Array{Pointer,1},ind::Int,gstack::Array{UInt64,1})
         name=AbstractString(namechars)
         f=open(name,"r")
         try
-            code=readbytes(f)
+            code=readbytes!(f)
         finally
             close(f)
         end

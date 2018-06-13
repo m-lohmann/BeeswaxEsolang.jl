@@ -8,7 +8,6 @@
 
 
 """
-
 function prettyprint(name::AbstractString)
     prettyprint(name,1)
 end
@@ -26,7 +25,6 @@ end
 
 
 """
-
 function prettyprint(name::AbstractString,style::Int)
     prog=open(name)
     code=readlines(prog)
