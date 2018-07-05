@@ -8,7 +8,7 @@ function debugger(arena::Honeycomb,gstack::Array{UInt64,1},list::Array{Pointer,1
         print("\n[")
         @inbounds for n=1:length(gstack)
             print(Int128(gstack[n]))
-            n<length(gstack) ? print(" "):nothing
+            n<length(gstack) ? print(" ") : nothing
         end
         println("]•")
         print("\n")

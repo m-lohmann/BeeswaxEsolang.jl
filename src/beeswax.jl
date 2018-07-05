@@ -128,8 +128,8 @@ function beeswax(name::AbstractString,debug::Int,pause::Float64,limit::Int)
     deb=Debugstate(debug)
 
     # read program file
-    deb.d>2&&deb.d<9? println("reading program file..."):
-    deb.d>=9? println("one-liner test mode....") : nothing
+    deb.d>2&&deb.d<9 ? println("reading program file...") :
+    deb.d>=9 ? println("one-liner test mode....") : nothing
     if deb.d<9
         prog=open(name)
         code=readlines(prog)
@@ -236,7 +236,7 @@ function beeswax(name::AbstractString,debug::Int,pause::Float64,limit::Int)
                 arena.a[r,c]=='v' && list[ind].printstate==true ? move(list,ind) :
                 arena.a[r,c]=='v' && list[ind].printstate==false ? nothing :
                 arena.a[r,c]=='^' && list[ind].printstate==true ? move(list,ind) :
-                arena.a[r,c]=='^' && list[ind].printstate==false ? nothing: move(list,ind)
+                arena.a[r,c]=='^' && list[ind].printstate==false ? nothing : move(list,ind)
             end
             cleanupip(list,rows,cols)
             rows=maximum(length(arena.a[:,1]))
@@ -264,12 +264,12 @@ end
 
 function move(list::Array{Pointer,1},ind::Int)
     d=list[ind].dir
-    d == 0 ? list[ind].loc=list[ind].loc+[0,1]:
-    d == 1 ? list[ind].loc=list[ind].loc+[-1,0]:
-    d == 2 ? list[ind].loc=list[ind].loc+[-1,-1]:
-    d == 3 ? list[ind].loc=list[ind].loc+[0,-1]:
-    d == 4 ? list[ind].loc=list[ind].loc+[1,0]:
-    d == 5 ? list[ind].loc=list[ind].loc+[1,1]:nothing
+    d == 0 ? list[ind].loc=list[ind].loc+[0,1] :
+    d == 1 ? list[ind].loc=list[ind].loc+[-1,0] :
+    d == 2 ? list[ind].loc=list[ind].loc+[-1,-1] :
+    d == 3 ? list[ind].loc=list[ind].loc+[0,-1] :
+    d == 4 ? list[ind].loc=list[ind].loc+[1,0] :
+    d == 5 ? list[ind].loc=list[ind].loc+[1,1] : nothing
 end
 
 
