@@ -181,7 +181,7 @@ function beeswax(name::AbstractString,debug::Int,pause::Float64,limit::Int)
     cols=maximum(length(arena.a[1,:]))
 
     # generate IPs
-    deb.d>2 ? println("generating bees..."):nothing
+    deb.d>2 ? println("generating bees...") : nothing
     @inbounds for c=1:cols
         @inbounds for r=1:rows
             arena.a[r,c] == ('*')  ? pointer_all(list,r,c) :
@@ -194,7 +194,7 @@ function beeswax(name::AbstractString,debug::Int,pause::Float64,limit::Int)
     debugger(arena,gstack,list,deb,ticks)
     ticks.t+=1
 
-    deb.d>2 ? println("running program..."):nothing
+    deb.d>2 ? println("running program...") : nothing
 
     while length(list)>0 && ticks.t<=limit
         cleanupip(list,rows,cols)
