@@ -279,10 +279,9 @@ end
 
 function instruct(list::Array{Pointer,1},ind::Int,gstack::Array{UInt64,1},arena::Honeycomb,row::Int,col::Int)
 
+    c=arena.a[row,col]
+    
     if list[ind].printstate==false
-
-        c=arena.a[row,col]
-
         c == '#' ? catch_all(list,ind)                :
         c == '>' ? redir_r(list,ind)                  :
         c == 'q' ? redir_dr(list,ind)                 :
