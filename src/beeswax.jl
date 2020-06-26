@@ -280,7 +280,7 @@ end
 function instruct(list::Array{Pointer,1},ind::Int,gstack::Array{UInt64,1},arena::Honeycomb,row::Int,col::Int)
 
     c=arena.a[row,col]
-    
+        
     if list[ind].printstate==false
         c == '#' ? catch_all(list,ind)                :
         c == '>' ? redir_r(list,ind)                  :
@@ -367,10 +367,10 @@ function instruct(list::Array{Pointer,1},ind::Int,gstack::Array{UInt64,1},arena:
         c == 'w' ? writefile(list,ind,gstack)         : nothing
 
     else #if list[ind].printstate==true
-        if arena.a[r,c] == '`'
+        if arena.a[row,col] == '`'
             toggleoutput(list,ind)
         else
-            print(arena.a[r,c])
+            print(arena.a[row,col])
         end
     end
 end
