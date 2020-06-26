@@ -158,7 +158,7 @@ function beeswax(name::AbstractString,debug::Int,pause::Float64,limit::Int)
     cols=0
     for i =1:length(code)
         code[i]=chomp(code[i])
-        cols=maximum([cols,strwidth(code[i])])
+        cols=maximum([cols,textwidth(code[i])])
     end
     for i=1:length(code)
         code[i]=rpad(code[i],cols," ")
