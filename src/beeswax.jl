@@ -167,7 +167,7 @@ function beeswax(name::AbstractString,debug::Int,pause::Float64,limit::Int)
 
     @inbounds for r=1:rows
         i=1;c=1
-        @inbounds while i<endof(code[r]) || c<=length(code[r])
+        @inbounds while i<lastindex(code[r]) || c<=length(code[r])
             try
                 arena.a[r,c]=code[r][i]
             catch
